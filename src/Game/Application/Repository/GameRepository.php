@@ -13,7 +13,7 @@ interface GameRepository
     public function findById(int $id): ?Game;
     public function findByName(string $name): ?Game;
     public function create(CreateGameDto $gameDto): Game;
-    public function update(UpdateGameDto $gameToUpdate): Game;
+    public function update(int $id, UpdateGameDto $gameToUpdate): Game;
 
     public function delete(int $id): void;
 }

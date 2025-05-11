@@ -17,6 +17,15 @@ readonly class GameManagementService
     ) {
     }
 
+    public function get(int $id): Game
+    {
+        $searchedGame = $this->gameRepository->findById($id);
+        if (!$searchedGame) {
+            throw new GameDoesNotExists();
+        }
+        return $searchedGame;
+    }
+
     public function getAll(): GameCollection
     {
         return $this->gameRepository->getAll();
@@ -41,7 +50,7 @@ readonly class GameManagementService
             throw new GameDoesNotExists();
         }
 
-        return $this->gameRepository->update($gameToUpdate);
+        return $this->gameRepository->update($id, $gameToUpdate);
     }
 
     public function delete(int $id): void

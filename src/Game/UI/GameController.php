@@ -15,8 +15,20 @@ use Symfony\Component\Routing\Attribute\Route;
 class GameController extends AbstractController
 {
     public function __construct(
-        private readonly GameManagementService $gameManagementService
+        private readonly GameManagementService $gameManagementService,
     ) {
+    }
+
+    #[Route(
+        path: '/games/{id}',
+        name: 'games-item',
+        methods: ['GET'])
+    ]
+    public function get(int $id): JsonResponse
+    {
+        return $this->json(
+            $this->gameManagementService->get($id)->toArray(),
+        );
     }
 
     #[Route(
@@ -27,7 +39,7 @@ class GameController extends AbstractController
     public function getAll(): JsonResponse
     {
         return $this->json(
-            $this->gameManagementService->getAll(),
+            $this->gameManagementService->getAll()->toArray(),
         );
     }
 
@@ -64,7 +76,7 @@ class GameController extends AbstractController
 
         return $this->json(
             $updatedGame->toArray(),
-            Response::HTTP_CREATED,
+            Response::HTTP_OK,
         );
     }
 

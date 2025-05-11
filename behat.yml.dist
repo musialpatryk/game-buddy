@@ -1,0 +1,10 @@
+default:
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: true
+      kernel:
+        class: App\Kernel
+  suites:
+    default:
+      contexts:
+        - App\Tests\Behat\WebBrowserContext
