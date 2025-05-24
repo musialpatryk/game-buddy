@@ -4,7 +4,7 @@ namespace App\Game\Application\Dto;
 
 use Webmozart\Assert\Assert;
 
-readonly class GameDto
+abstract readonly class GameDto
 {
     private const NAME_KEY = 'name';
 
