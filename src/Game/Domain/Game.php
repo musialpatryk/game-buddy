@@ -4,7 +4,7 @@ namespace App\Game\Domain;
 
 use Webmozart\Assert\Assert;
 
-readonly class Game
+readonly class Game implements \JsonSerializable
 {
     private const ID_KEY = 'id';
     private const NAME_KEY = 'name';
@@ -42,5 +42,10 @@ readonly class Game
             self::ID_KEY => $this->id,
             self::NAME_KEY => $this->name,
         ];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }

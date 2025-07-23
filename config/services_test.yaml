@@ -6,3 +6,7 @@ services:
 
     App\Tests\Behat\:
         resource: '../tests/Behat/*'
+
+    # Game
+    App\Game\Application\Repository\GameRepository:
+        '@App\Game\Infrastructure\Game\InMemory'

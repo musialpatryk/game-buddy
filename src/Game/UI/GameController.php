@@ -39,7 +39,7 @@ class GameController extends AbstractController
     public function getAll(): JsonResponse
     {
         return $this->json(
-            $this->gameManagementService->getAll()->toArray(),
+            $this->gameManagementService->getAll(),
         );
     }
 
@@ -56,7 +56,7 @@ class GameController extends AbstractController
         );
 
         return $this->json(
-            $createdGame->toArray(),
+            $createdGame,
             Response::HTTP_CREATED,
         );
     }

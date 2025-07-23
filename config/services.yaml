@@ -11,3 +11,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    # Game
+    App\Game\Application\Repository\GameRepository:
+        '@App\Game\Infrastructure\Game\MySql'

@@ -4,7 +4,7 @@ namespace App\Game\Domain;
 
 use Webmozart\Assert\Assert;
 
-class GameCollection
+class GameCollection implements \JsonSerializable
 {
     /**
      * @var Game[]
@@ -64,6 +64,13 @@ class GameCollection
         return array_map(
             static fn (Game $game) => $game->toArray(),
             $this->games,
+        );
+    }
+
+    public function jsonSerialize(): array
+    {
+        return array_values(
+            $this->toArray(),
         );
     }
 }
