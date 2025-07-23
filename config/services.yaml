@@ -15,3 +15,7 @@ services:
     # Game
     App\Game\Application\Repository\GameRepository:
         '@App\Game\Infrastructure\Game\MySql'
+
+    # Game details
+    App\GameDetails\Application\Repository\GameDetailsRepository:
+        '@App\GameDetails\Infrastructure\GameDetails\MySql'

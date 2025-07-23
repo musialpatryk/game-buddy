@@ -27,7 +27,7 @@ class GameController extends AbstractController
     public function get(int $id): JsonResponse
     {
         return $this->json(
-            $this->gameManagementService->get($id)->toArray(),
+            $this->gameManagementService->get($id),
         );
     }
 

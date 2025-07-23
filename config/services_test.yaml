@@ -10,3 +10,7 @@ services:
     # Game
     App\Game\Application\Repository\GameRepository:
         '@App\Game\Infrastructure\Game\InMemory'
+
+    # Game details
+    App\GameDetails\Application\Repository\GameDetailsRepository:
+        '@App\GameDetails\Infrastructure\GameDetails\InMemory'
