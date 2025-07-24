@@ -10,12 +10,12 @@ readonly class Category implements \JsonSerializable
     private const NAME = 'name';
 
     public function __construct(
-        private int $id,
+        private ?int $id,
         private string $name,
     ) {
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -27,11 +27,10 @@ readonly class Category implements \JsonSerializable
 
     public static function fromArray(array $data): self
     {
-        Assert::integerish($data[self::ID]);
         Assert::stringNotEmpty($data[self::NAME]);
 
         return new self(
-            $data[self::ID],
+            $data[self::ID] ?? null,
             $data[self::NAME],
         );
     }

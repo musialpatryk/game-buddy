@@ -22,7 +22,7 @@ class GameDetailsController extends AbstractController
     public function get(int $gameId): JsonResponse
     {
         return $this->json(
-            $this->gameDetailsService->find($gameId),
+            $this->gameDetailsService->get($gameId),
         );
     }
 

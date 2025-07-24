@@ -29,8 +29,6 @@ class CategoryCollection implements \JsonSerializable
 
     public static function fromArray(array $data): self
     {
-        Assert::allIsArray($data);
-
         return new self(
             array_map(
                 static fn(array $categoryData) => Category::fromArray($categoryData),
@@ -48,6 +46,17 @@ class CategoryCollection implements \JsonSerializable
     {
         return array_values(
             $this->toArray(),
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getNames(): array
+    {
+        return array_map(
+            static fn(Category $category) => $category->getName(),
+            $this->categories,
         );
     }
 }

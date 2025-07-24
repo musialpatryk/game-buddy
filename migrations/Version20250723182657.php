@@ -19,14 +19,17 @@ final class Version20250723182657 extends AbstractMigration
         $this->addSql(
             'CREATE TABLE IF NOT EXISTS game_details (
                 game_id BIGINT UNSIGNED PRIMARY KEY NOT NULL,
-                description LONGTEXT NULL,
+                description LONGTEXT NOT NULL,
+                duration INT UNSIGNED NOT NULL,
+                min_players INT UNSIGNED NOT NULL,
+                max_players INT UNSIGNED NOT NULL,
                 FOREIGN KEY(game_id) REFERENCES game (id)
             )'
         );
         $this->addSql(
             'CREATE TABLE IF NOT EXISTS game_category (
                 id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL
+                name VARCHAR(255) NOT NULL UNIQUE
             )'
         );
         $this->addSql(

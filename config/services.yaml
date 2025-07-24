@@ -19,3 +19,8 @@ services:
     # Game details
     App\GameDetails\Application\Repository\GameDetailsRepository:
         '@App\GameDetails\Infrastructure\GameDetails\MySql'
+
+    # Shared kernel
+    App\SharedKernel\Service\GeminiAIService:
+        arguments:
+            $apiKey: '%env(resolve:GEMINI_API_KEY)%'

@@ -4,16 +4,20 @@ namespace App\Game\Application\Service;
 
 use App\Game\Application\Dto\CreateGameDto;
 use App\Game\Application\Dto\UpdateGameDto;
+use App\Game\Application\Event\GameCreated;
+use App\Game\Application\Event\GameUpdated;
 use App\Game\Application\Exception\GameAlreadyExists;
 use App\Game\Application\Exception\GameDoesNotExists;
 use App\Game\Application\Repository\GameRepository;
 use App\Game\Domain\Game;
 use App\Game\Domain\GameCollection;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 readonly class GameManagementService
 {
     public function __construct(
         private GameRepository $gameRepository,
+        private EventDispatcherInterface $dispatcher,
     ) {
     }
 
@@ -38,7 +42,12 @@ readonly class GameManagementService
             throw new GameAlreadyExists();
         }
 
-        return $this->gameRepository->create($newGame);
+        $createdGame = $this->gameRepository->create($newGame);
+        $this->dispatcher->dispatch(
+            new GameCreated($createdGame)
+        );
+
+        return $createdGame;
     }
 
     public function update(
@@ -50,7 +59,12 @@ readonly class GameManagementService
             throw new GameDoesNotExists();
         }
 
-        return $this->gameRepository->update($id, $gameToUpdate);
+        $updatedGame = $this->gameRepository->update($id, $gameToUpdate);
+        $this->dispatcher->dispatch(
+            new GameUpdated($updatedGame)
+        );
+
+        return $updatedGame;
     }
 
     public function delete(int $id): void
