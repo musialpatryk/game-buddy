@@ -12,6 +12,10 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    # Collection
+    App\Collection\Application\Repository\CollectionRepository:
+        '@App\Collection\Infrastructure\Collection\MySql'
+
     # Game
     App\Game\Application\Repository\GameRepository:
         '@App\Game\Infrastructure\Game\MySql'

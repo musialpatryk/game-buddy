@@ -3,6 +3,7 @@
 namespace App\Game\Infrastructure\Game;
 
 use App\Game\Application\Dto\CreateGameDto;
+use App\Game\Application\Dto\GameFilters;
 use App\Game\Application\Dto\UpdateGameDto;
 use App\Game\Application\Repository\GameRepository;
 use App\Game\Domain\Game;
@@ -17,8 +18,24 @@ readonly class MySql implements GameRepository
     ) {
     }
 
-    public function getAll(): GameCollection
+    public function getAll(GameFilters $gameFilters): GameCollection
     {
+        if ($userId = $gameFilters->getUserId()) {
+            return GameCollection::fromArray(
+                $this->connection->fetchAllAssociative(
+                    'SELECT g.id, g.name FROM game g
+                    INNER JOIN game_user_assignment gua ON g.id = gua.game_id
+                    WHERE gua.user_id = :user_id',
+                    [
+                        'user_id' => $userId,
+                    ],
+                    [
+                        'user_id' => ParameterType::INTEGER,
+                    ]
+                )
+            );
+        }
+
         return GameCollection::fromArray(
             $this->connection->fetchAllAssociative(
                 'SELECT g.id, g.name FROM game g'

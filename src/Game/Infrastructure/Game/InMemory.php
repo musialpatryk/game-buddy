@@ -3,6 +3,7 @@
 namespace App\Game\Infrastructure\Game;
 
 use App\Game\Application\Dto\CreateGameDto;
+use App\Game\Application\Dto\GameFilters;
 use App\Game\Application\Dto\UpdateGameDto;
 use App\Game\Application\Repository\GameRepository;
 use App\Game\Domain\Game;
@@ -20,7 +21,7 @@ class InMemory implements GameRepository
         }
     }
 
-    public function getAll(): GameCollection
+    public function getAll(GameFilters $gameFilters): GameCollection
     {
         return self::$games;
     }

@@ -3,6 +3,7 @@
 namespace App\Game\UI;
 
 use App\Game\Application\Dto\CreateGameDto;
+use App\Game\Application\Dto\GameFilters;
 use App\Game\Application\Dto\UpdateGameDto;
 use App\Game\Application\Service\GameManagementService;
 use App\SharedKernel\Request\PayloadFactory;
@@ -14,6 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class GameController extends AbstractController
 {
+    private const ASSIGNED_TO_USER = 'assignedToUser';
+
     public function __construct(
         private readonly GameManagementService $gameManagementService,
     ) {
@@ -36,10 +39,12 @@ class GameController extends AbstractController
         name: 'games-list',
         methods: ['GET'])
     ]
-    public function getAll(): JsonResponse
+    public function getAll(Request $request): JsonResponse
     {
         return $this->json(
-            $this->gameManagementService->getAll(),
+            $this->gameManagementService->getAll(
+                new GameFilters($request->query->all())
+            ),
         );
     }
 
